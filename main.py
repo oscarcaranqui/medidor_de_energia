@@ -3,8 +3,8 @@ import json
 import time
 import random
 
-THINGSBOARD_HOST    = 'demo.thingsboard.io'
-ACCESS_TOKEN        = 'cWCf2JS1QDybTJtvhg4r'
+THINGSBOARD_HOST    = 'XXX'
+ACCESS_TOKEN        = 'XXX'
 PORT                = 1883
 KEEPLIVE            = 60
 TOPIC               = 'v1/devices/me/telemetry'
