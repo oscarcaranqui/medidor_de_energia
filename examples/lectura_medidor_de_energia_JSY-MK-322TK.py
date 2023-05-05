@@ -6,27 +6,17 @@ sys.path.insert(0, abspath(join(dirname(__file__), '..')))
 from bsp.common import util
 import datetime, pprint, time
 
-import paho.mqtt.client as mqtt
 from bsp.v3.modbus_generic import AddressSerial, AddressSerialPort
-from dispositivos_modbus.PM5100 import MedidorDeEnergia
+from dispositivos_modbus.JSY_MK_322TK import MedidorDeEnergia
 from dataclasses import dataclass, field
 from typing import List
-import json
 
 sampling_time_s = 2
+
 general_port= AddressSerialPort.rs485_isolated_4
 general_baudrate = 9600
 modbus_mode = "rtu"
 
-THINGSBOARD_HOST    = 'demo.thingsboard.io'
-ACCESS_TOKEN        = 'ypfO0yYZ5xeuv5bMtHT5'
-PORT                = 1883
-KEEPLIVE            = 60
-TOPIC               = 'v1/devices/me/telemetry'
-client = mqtt.Client()
-client.username_pw_set(ACCESS_TOKEN)
-client.connect(THINGSBOARD_HOST, PORT, KEEPLIVE)
-client.loop_start()
 
 medidores_energia_address_lst = [
     AddressSerial(aplicacion="Medidor_1", method=modbus_mode, port=general_port, baudrate=general_baudrate, slave=1)
@@ -56,45 +46,18 @@ class Mediciones:
 
 ###########################
 # Aqui comienza el programa principal
+
 while True:
     init = datetime.datetime.now()
 
     result = Mediciones()
     result_dict = util.asdict_without_datetostr(result)
-    payload = json.dumps(util.asdict(result))
-    # pprint.pprint(util.asdict(result), compact=True)
-    status = result_dict["status"]
-    if status == "OK":
-        medidor1 = result_dict["medidores_de_energia"][0]
-        del medidor1['address']
-        del medidor1['status']
-        print(medidor1)
-        client.publish(TOPIC, json.dumps(medidor1))
-        print()
+    pprint.pprint(util.asdict(result), compact=True)
+
+    print()
 
     print("Elapsed time: %d s" % (datetime.datetime.now() - init).total_seconds())
 
     while (datetime.datetime.now() - init).total_seconds() < sampling_time_s:
         time.sleep(1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

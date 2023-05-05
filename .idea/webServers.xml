@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="359734a7-2da9-44f8-a749-707d60558ee3" name="medidor">
+        <fileTransfer accessType="SFTP" host="192.168.100.79" port="22" sshConfigId="21e0bcbb-a5df-497c-8e30-b7375614a8a2" sshConfig="pi@192.168.100.79:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
